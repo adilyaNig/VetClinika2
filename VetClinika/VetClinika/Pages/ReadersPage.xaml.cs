@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,14 +25,11 @@ namespace VetClinika.Pages
     {
         public static List<Priem> pacientsTalon { get; set; }
         public static List<Vrach> employees { get; set; }
+        
         public ReadersPage()
         {
             InitializeComponent();
-            pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem.
-                Where(i => i.isDelete == false).ToList());
-            employees = new List<Vrach>(DBConnection.Connection.vet.Vrach.
-                Where(i => i.idType != ' ').ToList());
-            employees.Insert(0, new Vrach() { idVrach = -1, famVrach = "Вывести всех" });
+            pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem.ToList());
             this.DataContext = this;
         }
 

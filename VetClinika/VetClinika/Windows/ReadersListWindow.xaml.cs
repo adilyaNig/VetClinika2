@@ -30,22 +30,6 @@ namespace VetClinika.Windows
             
         }
 
-        private void EditReaderBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DeleteReadreBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void SearchReadersTb_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        private void ReadersLv_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+      
     }
 }

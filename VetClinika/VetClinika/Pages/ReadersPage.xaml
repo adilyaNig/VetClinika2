@@ -32,7 +32,7 @@
         <ListView Grid.ColumnSpan="6"
       Grid.RowSpan="8"
       Name="ReadersLv"
-      ItemsSource="{Binding readersTicket}">
+      ItemsSource="{Binding pacientsTalon}">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -40,7 +40,7 @@
                         <GridViewColumn Header="ID талона" Width="70">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Priem.idPriem}"/>
+                                    <TextBlock Text="{Binding idPriem}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -53,22 +53,12 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="ФИО врача" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Vrach.famVrach}"/>
-                                        <TextBlock Text="{Binding Vrach.nameVrach}"/>
-                                        <TextBlock Text="{Binding Vrach.patronymicVrach}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                       
 
                         <GridViewColumn Header="Дата приема" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Priem.DataPriem, StringFormat=dd.MM.yyyy}"/>
+                                    <TextBlock Text="{Binding DataPriem, StringFormat=dd.MM.yyyy}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
