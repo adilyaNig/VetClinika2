@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ClinikaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="idPet" />
+          </Key>
+          <Property Name="idPet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="namePet" Type="nvarchar" MaxLength="50" />
+          <Property Name="idGender" Type="int" />
+          <Property Name="idType" Type="int" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="Height" Type="int" />
+        </EntityType>
+        <EntityType Name="Priem">
+          <Key>
+            <PropertyRef Name="idPriem" />
+          </Key>
+          <Property Name="idPriem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPet" Type="int" />
+          <Property Name="idVrach" Type="int" />
+          <Property Name="DataPriem" Type="date" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type_Pet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Type_Vrach">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Vrach">
+          <Key>
+            <PropertyRef Name="idVrach" />
+          </Key>
+          <Property Name="idVrach" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="famVrach" Type="nvarchar" MaxLength="50" />
+          <Property Name="nameVrach" Type="nvarchar" MaxLength="50" />
+          <Property Name="patronymicVrach" Type="nvarchar" MaxLength="50" />
+          <Property Name="idType" Type="int" />
+        </EntityType>
+        <Association Name="FK_Pet_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Type_Pet">
+          <End Role="Type_Pet" Type="Self.Type_Pet" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Pet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Priem_Pet">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
+          <End Role="Priem" Type="Self.Priem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="idPet" />
+            </Principal>
+            <Dependent Role="Priem">
+              <PropertyRef Name="idPet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Priem_Vrach">
+          <End Role="Vrach" Type="Self.Vrach" Multiplicity="0..1" />
+          <End Role="Priem" Type="Self.Priem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vrach">
+              <PropertyRef Name="idVrach" />
+            </Principal>
+            <Dependent Role="Priem">
+              <PropertyRef Name="idVrach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vrach_Type_Vrach">
+          <End Role="Type_Vrach" Type="Self.Type_Vrach" Multiplicity="0..1" />
+          <End Role="Vrach" Type="Self.Vrach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Vrach">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vrach">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ClinikaModelContainer">
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priem" EntityType="Self.Priem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Pet" EntityType="Self.Type_Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Vrach" EntityType="Self.Type_Vrach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vrach" EntityType="Self.Vrach" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pet_Gender" Association="Self.FK_Pet_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Type_Pet" Association="Self.FK_Pet_Type_Pet">
+            <End Role="Type_Pet" EntitySet="Type_Pet" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Priem_Pet" Association="Self.FK_Priem_Pet">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Priem" EntitySet="Priem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Priem_Vrach" Association="Self.FK_Priem_Vrach">
+            <End Role="Vrach" EntitySet="Vrach" />
+            <End Role="Priem" EntitySet="Priem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vrach_Type_Vrach" Association="Self.FK_Vrach_Type_Vrach">
+            <End Role="Type_Vrach" EntitySet="Type_Vrach" />
+            <End Role="Vrach" EntitySet="Vrach" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClinikaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK_Pet_Gender" FromRole="Gender" ToRole="Pet" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="idPet" />
+          </Key>
+          <Property Name="idPet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="namePet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idGender" Type="Int32" />
+          <Property Name="idType" Type="Int32" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Height" Type="Int32" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Pet_Gender" FromRole="Pet" ToRole="Gender" />
+          <NavigationProperty Name="Type_Pet" Relationship="Self.FK_Pet_Type_Pet" FromRole="Pet" ToRole="Type_Pet" />
+          <NavigationProperty Name="Priem" Relationship="Self.FK_Priem_Pet" FromRole="Pet" ToRole="Priem" />
+        </EntityType>
+        <EntityType Name="Priem">
+          <Key>
+            <PropertyRef Name="idPriem" />
+          </Key>
+          <Property Name="idPriem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPet" Type="Int32" />
+          <Property Name="idVrach" Type="Int32" />
+          <Property Name="DataPriem" Type="DateTime" Precision="0" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDelete" Type="Boolean" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK_Priem_Pet" FromRole="Priem" ToRole="Pet" />
+          <NavigationProperty Name="Vrach" Relationship="Self.FK_Priem_Vrach" FromRole="Priem" ToRole="Vrach" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Type_Pet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK_Pet_Type_Pet" FromRole="Type_Pet" ToRole="Pet" />
+        </EntityType>
+        <EntityType Name="Type_Vrach">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vrach" Relationship="Self.FK_Vrach_Type_Vrach" FromRole="Type_Vrach" ToRole="Vrach" />
+        </EntityType>
+        <EntityType Name="Vrach">
+          <Key>
+            <PropertyRef Name="idVrach" />
+          </Key>
+          <Property Name="idVrach" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="famVrach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nameVrach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronymicVrach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idType" Type="Int32" />
+          <NavigationProperty Name="Priem" Relationship="Self.FK_Priem_Vrach" FromRole="Vrach" ToRole="Priem" />
+          <NavigationProperty Name="Type_Vrach" Relationship="Self.FK_Vrach_Type_Vrach" FromRole="Vrach" ToRole="Type_Vrach" />
+        </EntityType>
+        <Association Name="FK_Pet_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Type_Pet">
+          <End Role="Type_Pet" Type="Self.Type_Pet" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Pet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Priem_Pet">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
+          <End Role="Priem" Type="Self.Priem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="idPet" />
+            </Principal>
+            <Dependent Role="Priem">
+              <PropertyRef Name="idPet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Priem_Vrach">
+          <End Role="Vrach" Type="Self.Vrach" Multiplicity="0..1" />
+          <End Role="Priem" Type="Self.Priem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vrach">
+              <PropertyRef Name="idVrach" />
+            </Principal>
+            <Dependent Role="Priem">
+              <PropertyRef Name="idVrach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vrach_Type_Vrach">
+          <End Role="Type_Vrach" Type="Self.Type_Vrach" Multiplicity="0..1" />
+          <End Role="Vrach" Type="Self.Vrach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Vrach">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vrach">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinikaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
+          <EntitySet Name="Pet" EntityType="Self.Pet" />
+          <EntitySet Name="Priem" EntityType="Self.Priem" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Type_Pet" EntityType="Self.Type_Pet" />
+          <EntitySet Name="Type_Vrach" EntityType="Self.Type_Vrach" />
+          <EntitySet Name="Vrach" EntityType="Self.Vrach" />
+          <AssociationSet Name="FK_Pet_Gender" Association="Self.FK_Pet_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Type_Pet" Association="Self.FK_Pet_Type_Pet">
+            <End Role="Type_Pet" EntitySet="Type_Pet" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Priem_Pet" Association="Self.FK_Priem_Pet">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Priem" EntitySet="Priem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Priem_Vrach" Association="Self.FK_Priem_Vrach">
+            <End Role="Vrach" EntitySet="Vrach" />
+            <End Role="Priem" EntitySet="Priem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vrach_Type_Vrach" Association="Self.FK_Vrach_Type_Vrach">
+            <End Role="Type_Vrach" EntitySet="Type_Vrach" />
+            <End Role="Vrach" EntitySet="Vrach" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ClinikaModelContainer" CdmEntityContainer="ClinikaEntities">
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="ClinikaModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pet">
+            <EntityTypeMapping TypeName="ClinikaModel.Pet">
+              <MappingFragment StoreEntitySet="Pet">
+                <ScalarProperty Name="idPet" ColumnName="idPet" />
+                <ScalarProperty Name="namePet" ColumnName="namePet" />
+                <ScalarProperty Name="idGender" ColumnName="idGender" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priem">
+            <EntityTypeMapping TypeName="ClinikaModel.Priem">
+              <MappingFragment StoreEntitySet="Priem">
+                <ScalarProperty Name="idPriem" ColumnName="idPriem" />
+                <ScalarProperty Name="idPet" ColumnName="idPet" />
+                <ScalarProperty Name="idVrach" ColumnName="idVrach" />
+                <ScalarProperty Name="DataPriem" ColumnName="DataPriem" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ClinikaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Pet">
+            <EntityTypeMapping TypeName="ClinikaModel.Type_Pet">
+              <MappingFragment StoreEntitySet="Type_Pet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Vrach">
+            <EntityTypeMapping TypeName="ClinikaModel.Type_Vrach">
+              <MappingFragment StoreEntitySet="Type_Vrach">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vrach">
+            <EntityTypeMapping TypeName="ClinikaModel.Vrach">
+              <MappingFragment StoreEntitySet="Vrach">
+                <ScalarProperty Name="idVrach" ColumnName="idVrach" />
+                <ScalarProperty Name="famVrach" ColumnName="famVrach" />
+                <ScalarProperty Name="nameVrach" ColumnName="nameVrach" />
+                <ScalarProperty Name="patronymicVrach" ColumnName="patronymicVrach" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
