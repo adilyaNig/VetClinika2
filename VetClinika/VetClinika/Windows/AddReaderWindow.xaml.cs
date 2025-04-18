@@ -23,16 +23,42 @@ namespace VetClinika.Windows
         public AddReaderWindow()
         {
             InitializeComponent();
+            LoadComboBoxData();
         }
+
+        private void LoadComboBoxData()
+        {
+            // Загрузка данных о полах
+            PolTb.ItemsSource = Connection.vet.Gender.ToList();
+
+            // Загрузка данных о типах животных
+            TypeTb.ItemsSource = Connection.vet.Type_Pet.ToList();
+        }
+    
         private void SaveReaderBtn_Click(object sender, RoutedEventArgs e)
         {
             Pet pet = new Pet();
             pet.namePet = NameTb.Text.Trim();
-            pet.idGender= (PolTb.SelectedItem as Gender).id;
-            pet.idType = (TypeTb.SelectedItem as Type_Pet).id;
+            // Получаем id выбранного пола
+            if (PolTb.SelectedItem is Gender selectedGender)
+            {
+                pet.idGender = selectedGender.id;
+            }
 
+            // Получаем id выбранного типа животного
+            if (TypeTb.SelectedItem is Type_Pet selectedType)
+            {
+                pet.idType = selectedType.id;
+            }
+
+            // Преобразуем вес и рост
+            pet.Weight = Convert.ToInt32(WeightTb.Text.Trim());
+            pet.Height = Convert.ToInt32(HeightTb.Text.Trim());
+
+            // Сохраняем питомца в базе данных
             Connection.vet.Pet.Add(pet);
             Connection.vet.SaveChanges();
+
             MessageBox.Show("Пациент успешно добавлен.");
             Close();
         }

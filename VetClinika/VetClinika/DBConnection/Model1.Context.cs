@@ -13,10 +13,10 @@ namespace VetClinika.DBConnection
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ClinikaEntities : DbContext
+    public partial class ClinikaEntities1 : DbContext
     {
-        public ClinikaEntities()
-            : base("name=ClinikaEntities")
+        public ClinikaEntities1()
+            : base("name=ClinikaEntities1")
         {
         }
     

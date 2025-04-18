@@ -28,8 +28,10 @@ namespace VetClinika.DBConnection
         public Nullable<int> Height { get; set; }
     
         public virtual Gender Gender { get; set; }
-        public virtual Type_Pet Type_Pet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Priem> Priem { get; set; }
+        public virtual Type_Pet Type_Pet { get; set; }
+        public virtual Type_Pet Type_Pet1 { get; set; }
+
     }
 }

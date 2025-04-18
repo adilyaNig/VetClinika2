@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ClinikaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ClinikaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="id" />
@@ -67,6 +67,8 @@
           <Property Name="nameVrach" Type="nvarchar" MaxLength="50" />
           <Property Name="patronymicVrach" Type="nvarchar" MaxLength="50" />
           <Property Name="idType" Type="int" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Pet_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
@@ -157,8 +159,7 @@
             <End Role="Vrach" EntitySet="Vrach" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ClinikaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -181,8 +182,9 @@
           <Property Name="Weight" Type="Int32" />
           <Property Name="Height" Type="Int32" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Pet_Gender" FromRole="Pet" ToRole="Gender" />
-          <NavigationProperty Name="Type_Pet" Relationship="Self.FK_Pet_Type_Pet" FromRole="Pet" ToRole="Type_Pet" />
           <NavigationProperty Name="Priem" Relationship="Self.FK_Priem_Pet" FromRole="Pet" ToRole="Priem" />
+          <NavigationProperty Name="Type_Pet" Relationship="Self.FK_Type_Pet_Pet" FromRole="Pet" ToRole="Type_Pet" />
+          <NavigationProperty Name="Type_Pet1" Relationship="ClinikaModel.FK_Pet_Type_Pet" FromRole="Pet" ToRole="Type_Pet" />
         </EntityType>
         <EntityType Name="Priem">
           <Key>
@@ -213,7 +215,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Pet" Relationship="Self.FK_Pet_Type_Pet" FromRole="Type_Pet" ToRole="Pet" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK_Type_Pet_Pet" FromRole="Type_Pet" ToRole="Pet" />
+          <NavigationProperty Name="Pet1" Relationship="ClinikaModel.FK_Pet_Type_Pet" FromRole="Type_Pet" ToRole="Pet" />
         </EntityType>
         <EntityType Name="Type_Vrach">
           <Key>
@@ -234,6 +237,8 @@
           <Property Name="idType" Type="Int32" />
           <NavigationProperty Name="Priem" Relationship="Self.FK_Priem_Vrach" FromRole="Vrach" ToRole="Priem" />
           <NavigationProperty Name="Type_Vrach" Relationship="Self.FK_Vrach_Type_Vrach" FromRole="Vrach" ToRole="Type_Vrach" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Pet_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
@@ -247,18 +252,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pet_Type_Pet">
-          <End Role="Type_Pet" Type="Self.Type_Pet" Multiplicity="0..1" />
-          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Type_Pet">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Pet">
-              <PropertyRef Name="idType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Priem_Pet">
           <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
           <End Role="Priem" Type="Self.Priem" Multiplicity="*" />
@@ -268,6 +261,18 @@
             </Principal>
             <Dependent Role="Priem">
               <PropertyRef Name="idPet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Pet_Pet">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+          <End Role="Type_Pet" Type="Self.Type_Pet" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="idPet" />
+            </Principal>
+            <Dependent Role="Type_Pet">
+              <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -295,7 +300,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ClinikaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ClinikaEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="Pet" EntityType="Self.Pet" />
           <EntitySet Name="Priem" EntityType="Self.Priem" />
@@ -307,13 +312,13 @@
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Pet" EntitySet="Pet" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pet_Type_Pet" Association="Self.FK_Pet_Type_Pet">
-            <End Role="Type_Pet" EntitySet="Type_Pet" />
-            <End Role="Pet" EntitySet="Pet" />
-          </AssociationSet>
           <AssociationSet Name="FK_Priem_Pet" Association="Self.FK_Priem_Pet">
             <End Role="Pet" EntitySet="Pet" />
             <End Role="Priem" EntitySet="Priem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Pet_Pet" Association="Self.FK_Type_Pet_Pet">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Type_Pet" EntitySet="Type_Pet" />
           </AssociationSet>
           <AssociationSet Name="FK_Priem_Vrach" Association="Self.FK_Priem_Vrach">
             <End Role="Vrach" EntitySet="Vrach" />
@@ -323,13 +328,29 @@
             <End Role="Type_Vrach" EntitySet="Type_Vrach" />
             <End Role="Vrach" EntitySet="Vrach" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pet_Type_Pet" Association="ClinikaModel.FK_Pet_Type_Pet">
+            <End Role="Type_Pet" EntitySet="Type_Pet" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Pet_Type_Pet">
+          <End Type="ClinikaModel.Type_Pet" Role="Type_Pet" Multiplicity="0..1" />
+          <End Type="ClinikaModel.Pet" Role="Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Pet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ClinikaModelContainer" CdmEntityContainer="ClinikaEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ClinikaModelContainer" CdmEntityContainer="ClinikaEntities1">
           <EntitySetMapping Name="Gender">
             <EntityTypeMapping TypeName="ClinikaModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
@@ -392,6 +413,8 @@
           <EntitySetMapping Name="Vrach">
             <EntityTypeMapping TypeName="ClinikaModel.Vrach">
               <MappingFragment StoreEntitySet="Vrach">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="idVrach" ColumnName="idVrach" />
                 <ScalarProperty Name="famVrach" ColumnName="famVrach" />
                 <ScalarProperty Name="nameVrach" ColumnName="nameVrach" />
@@ -418,6 +441,7 @@
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="SynchronizePropertyFacets" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

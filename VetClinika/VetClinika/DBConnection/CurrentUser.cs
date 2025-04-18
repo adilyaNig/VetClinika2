@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace VetClinika.DBConnection
 {
-    internal class Connection
+    internal class CurrentUser
     {
-        public static ClinikaEntities1 vet = new ClinikaEntities1();
+        public static int? IdVrach { get; set; }
     }
 }

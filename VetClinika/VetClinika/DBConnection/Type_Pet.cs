@@ -17,13 +17,14 @@ namespace VetClinika.DBConnection
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Type_Pet()
         {
-            this.Pet = new HashSet<Pet>();
+            this.Pet1 = new HashSet<Pet>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
     
+        public virtual Pet Pet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pet> Pet { get; set; }
+        public virtual ICollection<Pet> Pet1 { get; set; }
     }
 }

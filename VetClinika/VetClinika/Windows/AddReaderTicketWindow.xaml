@@ -9,8 +9,9 @@
 Height="250" Width="350">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="23*"/>
+            <ColumnDefinition Width="12*"/>
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -20,26 +21,24 @@ Height="250" Width="350">
         </Grid.RowDefinitions>
         <TextBlock Text="Пациент: "
            VerticalAlignment="Center"
-           HorizontalAlignment="Right"
-           Margin=" 0 0 5 0"/>
+           HorizontalAlignment="Left"
+           Margin="117,0,0,0"/>
         <ComboBox Grid.Column="1"
           Height="20"
           Width="100"
-          HorizontalAlignment="Left"
+          HorizontalAlignment="Center"
           Name="PetCm"
-         
-          ItemsSource="{Binding readers}">
+          ItemsSource="{Binding pets}" Margin="0,29,0,29">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Lastname}"/>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Patronymic}"/>
-                        <TextBlock Text="{Binding Phone}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding namePet}" Margin="0,0,5,0" />
+                        <TextBlock Text=", " />
+                        <TextBlock Text="{Binding idType}" />
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-        </ComboBox >
+        </ComboBox>
         <Button x:Name="AddReaderBtn"
         Height="25"
         Width="60"
@@ -49,7 +48,7 @@ Height="250" Width="350">
         Margin=" 0 0 5 0"
         Click="AddReaderBtn_Click"
         HorizontalAlignment="Right"
-        VerticalAlignment="Top"/>
+        VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Button x:Name="UpdateBtn"
         Height="25"  
         Width="60"
@@ -59,35 +58,36 @@ Height="250" Width="350">
         Margin=" 0 0 5 0"
         Click="UpdateBtn_Click"
         VerticalAlignment="Bottom"
-        HorizontalAlignment="Right"/>
-        <TextBlock Text="Врач: "
-           Grid.Row="1"
-           VerticalAlignment="Center"
-           HorizontalAlignment="Right"
-           Margin=" 0 0 5 0"/>
-        <ComboBox Grid.Column="1"
-          Grid.Row="1"
+        HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+        <!-- Добавляем DatePicker -->
+        <TextBlock Text="Дата приема: "
+   VerticalAlignment="Top"
+   HorizontalAlignment="Left"
+   Margin="90,0,0,0" Grid.Row="1"/>
+
+        <DatePicker Grid.Column="1"
+                Grid.Row="1"
+                Height="30"
+                Name="DateOfVisitDtp"
+                Width="100" 
+                HorizontalAlignment="Center" VerticalAlignment="Top"
+                />
+        <TextBlock Text="Комментарий: "
+   VerticalAlignment="Bottom"
+   HorizontalAlignment="Left"
+   Margin="90,0,0,0" Grid.Row="1"/>
+        <TextBox Grid.Column="1" Grid.Row="1"
           Height="20"
-          Name="VrachCm"
           Width="100"
-          HorizontalAlignment="Left"
-          ItemsSource="{Binding employees}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Lastname}"/>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Patronymic}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+          HorizontalAlignment="Center" VerticalAlignment="Bottom"
+          Name="ComTb"/>
+
         <Button x:Name="SaveTicketBtn"
         Grid.ColumnSpan="2"
         Grid.Row="2"
         Height="35"
         Width="100"
         Content="Сохранить"
-        Click="SaveTicketBtn_Click"/>
+        Click="SaveTicketBtn_Click" Margin="125,22,65,21"/>
     </Grid>
 </Window>

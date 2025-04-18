@@ -8,14 +8,15 @@
         Title="ReadersListWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="73*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -28,38 +29,24 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="SearchReadersTb"
-          Grid.ColumnSpan="2"
-          Margin="10"
-          FontSize="20"
-          Padding="3 0 0 0"
-          VerticalAlignment="Center"
-          />
-        <DatePicker Grid.Row="1"
-             Grid.ColumnSpan="2"
-             Margin="10"
-             x:Name="BirthDateDp"
-             />
-        <Button x:Name="EditReaderBtn"
+           <TextBox Grid.Column="0"
+Grid.ColumnSpan="2"
+Grid.Row="1"
+Height="25"
+Width="180"
+Name="TicketSearchTb"
+TextChanged="TicketSearchTb_TextChanged"
+VerticalAlignment="Top"
+Padding="2 0 0 0"/>
+       
         
-         Content="Редактировать читателя"
-         Grid.Row="3"
-         Grid.ColumnSpan="2"
-         Margin="10"/>
-        <Button x:Name="DeleteReadreBtn"
-         
-         Content="Удалить читателя"
-         Grid.Row="4"
-         Grid.ColumnSpan="2"
-         Margin="10"/>
 
-
-        <ListView Grid.ColumnSpan="6"
+        <ListView Grid.ColumnSpan="7"
            Grid.Column="2"
            Grid.RowSpan="8"
            x:Name="ReadersLv"
-           ItemsSource="{Binding readers}"
-           >
+           ItemsSource="{Binding pets}" 
+           MouseDown="ReadersLv_MouseDown">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -67,50 +54,53 @@
                          Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ID}"/>
+                                    <TextBlock Text="{Binding idPet}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Фамилия"
+                        <GridViewColumn Header="Кличка"
                          Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Lastname}"/>
+                                    <TextBlock Text="{Binding namePet}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Имя"
+                        <GridViewColumn Header="пол"
                          Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Gender.name}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Отчество"
+                        <GridViewColumn Header="Тип"
                          Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Patronymic}"/>
+                                    <TextBlock Text="{Binding Type_Pet.name}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Дата рождения"
+                        
+                        <GridViewColumn Header="Вес"
                          Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Birthdate, StringFormat=dd.MM.yyyy}"/>
+                                    <TextBlock Text="{Binding Weight}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Номер телефона"
-                         Width="100">
+
+                        <GridViewColumn Header="Рост"
+ Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Phone}"/>
+                                    <TextBlock Text="{Binding Height}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+
                     </GridView.Columns>
                 </GridView>
             </ListView.View>

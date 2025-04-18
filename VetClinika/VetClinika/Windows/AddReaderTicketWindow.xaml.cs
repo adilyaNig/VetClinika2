@@ -25,26 +25,46 @@ namespace VetClinika.Windows
     {
         public static List<Pet> pets { get; set; }
         public static List<Vrach> vraches { get; set; }
+
         public AddReaderTicketWindow()
         {
             InitializeComponent();
-            pets = new List<Pet>(Connection.vet.Pet.ToList());
+
+
+
             vraches = new List<Vrach>(Connection.vet.Vrach.ToList());
+            pets = new List<Pet>(Connection.vet.Pet.ToList());
             this.DataContext = this;
+
+
         }
 
         private void SaveTicketBtn_Click(object sender, RoutedEventArgs e)
         {
+            // Создаем новый приём
             Priem priem = new Priem();
             priem.isDelete = false;
-            priem.DataPriem = new DateTime();
+
+            // Забираем выбранную дату из DatePicker
+            priem.DataPriem = DateOfVisitDtp.SelectedDate ?? DateTime.Now; // Используем текущую дату, если дата не выбрана
+
+            priem.Comment=ComTb.Text;
+
+            // Забираем выбранный питомец
             var pet = PetCm.SelectedItem as Pet;
-            priem.idPet = pet.idPet;
-            var vrach = VrachCm.SelectedItem as Vrach;
-            priem.idVrach = vrach.idVrach;
-            Connection.vet.Pet.Add(pet);
+            if (pet != null)
+            {
+                priem.idPet = pet.idPet;
+            }
+
+            // Устанавливаем id врача
+            priem.idVrach = CurrentUser.IdVrach ?? 0; // Используйте 0 или другое значение по умолчанию, если idVrach не установлен
+
+            // Сохраняем приём в базу данных
+            Connection.vet.Priem.Add(priem);
             Connection.vet.SaveChanges();
-            MessageBox.Show("Новый билет добавлен.");
+
+            MessageBox.Show("Новый прием добавлен.");
             Close();
         }
 

@@ -67,6 +67,6 @@
         Width="180"
         Content="ВОЙТИ КАК ВРАЧ"
         Click="loginBtn_Click"/>
-
+       
     </Grid>
 </Page>

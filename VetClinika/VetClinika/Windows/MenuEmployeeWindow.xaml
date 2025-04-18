@@ -30,16 +30,26 @@
         </Grid.RowDefinitions>
 
 
-        <TextBlock Text="Иванов Иван Иванович"
+        <TextBlock x:Name="fioTb" Grid.RowSpan="2"
        Grid.Row="2"
        Grid.ColumnSpan="2"
        FontSize="20"
        FontWeight="Bold"
        TextWrapping="Wrap"
        Padding=" 0 10 0 0"
-       VerticalAlignment="Top"/>
-        <TextBlock Text="Id: 00001"
-       Grid.Row="2"
+       VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+        <TextBlock x:Name="typeTb"
+        Grid.Row="1"
+        Grid.ColumnSpan="2"
+        FontSize="20"
+        FontWeight="Bold"
+        TextWrapping="Wrap"
+        Padding=" 0 10 0 0"
+        VerticalAlignment="Top" HorizontalAlignment="Center"/>      
+
+        <TextBlock x:Name="idTb"
+       Grid.Row="0" Margin="30 0 0 0"
        Grid.ColumnSpan="2"
        FontSize="15"
        Foreground="Gray"
@@ -47,28 +57,14 @@
        VerticalAlignment="Bottom"/>
         <Button x:Name="readerBtn"
     Content="Приемы"
-    Grid.Row="3"
-    Grid.ColumnSpan="2"
-    FontSize="20"
-    VerticalContentAlignment="Center"
-    Background="Wheat"
-    Click="readerBtn_Click"/>
-        <Button x:Name="bookBtn"
-    Content="Книги"
-    Grid.Row="4"
-    Grid.ColumnSpan="2"
-    FontSize="20"
-    VerticalContentAlignment="Center"
-    Background="Wheat"
-    Click="bookBtn_Click"/>
-        <Button x:Name="reportBtn"
-    Content="Отчеты"
     Grid.Row="5"
     Grid.ColumnSpan="2"
     FontSize="20"
     VerticalContentAlignment="Center"
     Background="Wheat"
-    Click="reportBtn_Click"/>
+    Click="readerBtn_Click"/>
+        
+       
         <Button x:Name="exitBtn"
     Content="ВЫХОД"
     Grid.Row="6"

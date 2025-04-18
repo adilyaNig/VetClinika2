@@ -25,6 +25,8 @@ namespace VetClinika.DBConnection
         public string nameVrach { get; set; }
         public string patronymicVrach { get; set; }
         public Nullable<int> idType { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Priem> Priem { get; set; }

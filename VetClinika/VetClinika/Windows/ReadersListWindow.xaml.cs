@@ -27,9 +27,28 @@ namespace VetClinika.Windows
         public ReadersListWindow()
         {
             InitializeComponent();
-            
+            pets = new List<Pet>(Connection.vet.Pet.ToList());
+            this.DataContext = this;
+        }
+        private void TicketSearchTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string search = TicketSearchTb.Text.Trim(); // Получаем текст из TextBox
+
+            if (string.IsNullOrEmpty(search)) // Проверяем, пуст ли ввод
+                ReadersLv.ItemsSource = pets.ToList(); // Если пусто, показываем все записи
+            else
+                // Фильтруем по кличке питомца
+                ReadersLv.ItemsSource = pets
+                    .Where(i => i.idPet != -1 && i.namePet != null && i.namePet.ToLower().Contains(search.ToLower()))
+                    .ToList(); // Ищем по кличке, игнорируя регистр
+        }
+        
+        
+
+        private void ReadersLv_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ReadersLv.ItemsSource = new List<Pet>(DBConnection.Connection.vet.Pet.ToList());
         }
 
-      
     }
 }

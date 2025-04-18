@@ -36,7 +36,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Margin="0 0 5 0"/>
-        <TextBlock Text="Тип"
+        <TextBlock Text="Вид животного:"
                    Grid.ColumnSpan="2"
                    Grid.Row="2"
                    FontSize="18"
@@ -69,32 +69,35 @@
                  Grid.Row="1"
                  Grid.ColumnSpan="2"
                  Height="35"
-                 Width="200"/>
+                 Width="200"
+                  DisplayMemberPath="name"
+                 SelectedValuePath="id"/>
         <ComboBox x:Name="TypeTb"
                  Grid.Column="2"
                  Grid.Row="2"
                  Grid.ColumnSpan="2"
                  Height="35"
-                 Width="200"/>
-        <TextBox x:Name="BirthDateDp"
+                 Width="200"
+                  DisplayMemberPath="name"
+                  SelectedValuePath="id" />
+            <TextBox x:Name="WeightTb"
                  Grid.Column="2"
                  Grid.Row="3"
                  Grid.ColumnSpan="2"
                  Height="35"
                  Width="200"/>
-        <TextBox x:Name="PhoneTb"
+            <TextBox x:Name="HeightTb"
                  Grid.Column="2"
                  Grid.Row="4"
                  Grid.ColumnSpan="2"
                  Height="35"
                  Width="200"/>
-        <Button x:Name="SaveReaderBtn"
+            <Button x:Name="SaveReaderBtn"
                 Content="Добавить пациента"
                 Click="SaveReaderBtn_Click"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Grid.Row="5"
                 FontSize="18"/>
-
     </Grid>
 </Window>
