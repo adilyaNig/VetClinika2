@@ -1,11 +1,11 @@
-﻿<Window x:Class="VetClinika.Windows.MenuEmployeeWindow"
+﻿<Window x:Class="VetClinika.Windows.MenuVrachWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VetClinika.Windows"
         mc:Ignorable="d"
-        Title="MenuEmployeeWindow" Height="450" Width="800">
+        Title="Меню врача" Height="450" Width="800">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -57,14 +57,23 @@
        VerticalAlignment="Bottom"/>
         <Button x:Name="readerBtn"
     Content="Приемы"
-    Grid.Row="5"
+    Grid.Row="4"
     Grid.ColumnSpan="2"
     FontSize="20"
     VerticalContentAlignment="Center"
     Background="Wheat"
     Click="readerBtn_Click"/>
-        
-       
+
+        <Button x:Name="petsBtn"
+Content="Список пациентов"
+Grid.Row="5"
+Grid.ColumnSpan="2"
+FontSize="20"
+VerticalContentAlignment="Center"
+Background="Wheat"
+Click="petsBtn_Click"/>
+
+
         <Button x:Name="exitBtn"
     Content="ВЫХОД"
     Grid.Row="6"

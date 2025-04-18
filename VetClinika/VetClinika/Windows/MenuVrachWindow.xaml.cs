@@ -19,15 +19,15 @@ namespace VetClinika.Windows
     /// <summary>
     /// Логика взаимодействия для MenuEmployeeWindow.xaml
     /// </summary>
-    public partial class MenuEmployeeWindow : Window
+    public partial class MenuVrachWindow : Window
     {
-        public MenuEmployeeWindow()
+        public MenuVrachWindow()
         {
             InitializeComponent();
         }
         private void readerBtn_Click(object sender, RoutedEventArgs e)
         {
-            menuFr.NavigationService.Navigate(new ReadersPage());
+            menuFr.NavigationService.Navigate(new PetsPage());
         }
 
         private void bookBtn_Click(object sender, RoutedEventArgs e)
@@ -43,6 +43,14 @@ namespace VetClinika.Windows
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void petsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+                PetsListWindow petsList = new PetsListWindow();
+                petsList.Show();
+            
         }
     }
 }

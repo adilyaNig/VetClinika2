@@ -19,12 +19,12 @@ using VetClinika.DBConnection;
 namespace VetClinika.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для ReadersListWindow.xaml
+    /// Логика взаимодействия для PetsListWindow.xaml
     /// </summary>
-    public partial class ReadersListWindow : Window
+    public partial class PetsListWindow : Window
     {
         public static List<Pet> pets { get; set; }
-        public ReadersListWindow()
+        public PetsListWindow()
         {
             InitializeComponent();
             pets = new List<Pet>(Connection.vet.Pet.ToList());
@@ -32,15 +32,15 @@ namespace VetClinika.Windows
         }
         private void TicketSearchTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string search = TicketSearchTb.Text.Trim(); // Получаем текст из TextBox
+            string search = TicketSearchTb.Text.Trim(); 
 
-            if (string.IsNullOrEmpty(search)) // Проверяем, пуст ли ввод
-                ReadersLv.ItemsSource = pets.ToList(); // Если пусто, показываем все записи
+            if (string.IsNullOrEmpty(search)) 
+                ReadersLv.ItemsSource = pets.ToList(); 
             else
-                // Фильтруем по кличке питомца
+                
                 ReadersLv.ItemsSource = pets
                     .Where(i => i.idPet != -1 && i.namePet != null && i.namePet.ToLower().Contains(search.ToLower()))
-                    .ToList(); // Ищем по кличке, игнорируя регистр
+                    .ToList(); 
         }
         
         

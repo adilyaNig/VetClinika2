@@ -1,11 +1,11 @@
-﻿<Window x:Class="VetClinika.Windows.AddReaderWindow"
+﻿<Window x:Class="VetClinika.Windows.AddPetWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VetClinika.Windows"
         mc:Ignorable="d"
-       Title="AddReaderWindow" Height="350" Width="450">
+       Title="Добавить пациента" Height="350" Width="450">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

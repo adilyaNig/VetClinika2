@@ -8,6 +8,6 @@ namespace VetClinika.DBConnection
 {
     internal class Connection
     {
-        public static ClinikaEntities1 vet = new ClinikaEntities1();
+        public static ClinikaEntities vet = new ClinikaEntities();
     }
 }

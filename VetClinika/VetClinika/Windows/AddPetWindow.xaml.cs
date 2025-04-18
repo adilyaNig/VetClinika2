@@ -18,9 +18,9 @@ namespace VetClinika.Windows
     /// <summary>
     /// Логика взаимодействия для AddReaderWindow.xaml
     /// </summary>
-    public partial class AddReaderWindow : Window
+    public partial class AddPetWindow : Window
     {
-        public AddReaderWindow()
+        public AddPetWindow()
         {
             InitializeComponent();
             LoadComboBoxData();

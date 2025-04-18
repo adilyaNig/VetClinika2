@@ -23,14 +23,14 @@ namespace VetClinika.Pages
     /// <summary>
     /// Логика взаимодействия для ReadersPage.xaml
     /// </summary>
-    public partial class ReadersPage : Page
+    public partial class PetsPage : Page
     {
         public static List<Priem> pacientsTalon {  get; set; }
         public static List<Vrach> employees {  get; set; }
 
         public static Vrach vrach;
 
-        public ReadersPage()
+        public PetsPage()
         {
             InitializeComponent();
             // Проверяем, есть ли текущий врач
@@ -99,15 +99,11 @@ namespace VetClinika.Pages
 
         private void AddReaderTicketBtn_Click(object sender, RoutedEventArgs e)
         {
-            Windows.AddReaderTicketWindow addReaderTicket = new Windows.AddReaderTicketWindow();
-            addReaderTicket.Show();
+            Windows.AddPriemWindow addPriem = new Windows.AddPriemWindow();
+            addPriem.Show();
         }
 
-        private void ReadersListBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ReadersListWindow readersList = new ReadersListWindow();
-            readersList.Show();
-        }
+        
 
         private void DeleteReadreBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -122,6 +118,7 @@ namespace VetClinika.Pages
                     DBConnection.Connection.vet.SaveChanges();
 
                     // Обновляем список приёмов, оставив только текущие
+                    pacient.isDelete = true;
                     pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem.Where(p => p.idVrach == AuthorizationPage.vrach.idVrach).ToList());
                     ReadersLv.ItemsSource = pacientsTalon;
 
@@ -138,6 +135,21 @@ namespace VetClinika.Pages
         {
             dpFilterDate.SelectedDate = null; // Очищаем выбранную дату
             ReadersLv.ItemsSource = pacientsTalon; // Возвращаемся ко всему списку
+        }
+
+        private void RedactTicketBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var priem = ReadersLv.SelectedItem as Priem;
+            if (priem != null)
+            {
+                RedactPriemWindow window1 = new RedactPriemWindow(priem); // Передаёшь объект priem
+                window1.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Для редактирования выберите прием");
+            }
         }
     }
 }

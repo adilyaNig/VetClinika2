@@ -46,7 +46,7 @@ namespace VetClinika.Pages
                 AuthorizationPage.vrach = result.Item1;
                 CurrentUser.IdVrach = result.Item1.idVrach;
 
-                MenuEmployeeWindow menuEmployeeWindow = new MenuEmployeeWindow();
+                MenuVrachWindow menuEmployeeWindow = new MenuVrachWindow();
                 menuEmployeeWindow.Show();
 
                 menuEmployeeWindow.fioTb.Text = $"{result.Item1.famVrach} {result.Item1.nameVrach} {result.Item1.patronymicVrach}";
@@ -62,7 +62,7 @@ namespace VetClinika.Pages
 
         private Tuple<Vrach, Type_Vrach> CheckCredentials(string login, string password)
         {
-            using (var context = new ClinikaEntities1())
+            using (var context = new ClinikaEntities())
             {
                 var vrachQuery = from v in context.Vrach
                                  where v.login == login && v.password == password

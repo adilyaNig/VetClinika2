@@ -21,12 +21,12 @@ namespace VetClinika.Windows
     /// <summary>
     /// Логика взаимодействия для AddReaderTicketWindow.xaml
     /// </summary>
-    public partial class AddReaderTicketWindow : Window
+    public partial class AddPriemWindow : Window
     {
         public static List<Pet> pets { get; set; }
         public static List<Vrach> vraches { get; set; }
 
-        public AddReaderTicketWindow()
+        public AddPriemWindow()
         {
             InitializeComponent();
 
@@ -70,7 +70,7 @@ namespace VetClinika.Windows
 
         private void AddReaderBtn_Click(object sender, RoutedEventArgs e)
         {
-            AddReaderWindow addReaderWindow = new AddReaderWindow();
+            AddPetWindow addReaderWindow = new AddPetWindow();
             addReaderWindow.Show();
         }
 
