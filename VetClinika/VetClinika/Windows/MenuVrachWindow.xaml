@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VetClinika.Windows"
         mc:Ignorable="d"
-        Title="Меню врача" Height="450" Width="800">
+        Title="Меню врача" Height="450" Width="800" >
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -55,14 +55,15 @@
        Foreground="Gray"
        Padding=" 0 0 0 20"
        VerticalAlignment="Bottom"/>
-        <Button x:Name="readerBtn"
+       
+        <Button x:Name="priemsBtn"
     Content="Приемы"
     Grid.Row="4"
     Grid.ColumnSpan="2"
     FontSize="20"
     VerticalContentAlignment="Center"
     Background="Wheat"
-    Click="readerBtn_Click"/>
+    Click="priemsBtn_Click"/>
 
         <Button x:Name="petsBtn"
 Content="Список пациентов"

@@ -43,7 +43,7 @@ namespace VetClinika.Windows
             this.DataContext = this;
         }
 
-        private void SaveTicketBtn_Click(object sender, RoutedEventArgs e)
+        private void SavePriemBtn_Click(object sender, RoutedEventArgs e)
         {
             // Получаем текущие данные из элементов управления
             var pet = PetCm.SelectedItem as Pet;
@@ -61,15 +61,16 @@ namespace VetClinika.Windows
             Close();
         }
 
-        private void AddReaderBtn_Click(object sender, RoutedEventArgs e)
+        private void AddPetBtn_Click(object sender, RoutedEventArgs e)
         {
-            AddPetWindow addReaderWindow = new AddPetWindow();
-            addReaderWindow.Show();
+            AddPetWindow addPetWindow = new AddPetWindow();
+            addPetWindow.Show();
         }
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             PetCm.ItemsSource = new List<Pet>(Connection.vet.Pet.ToList());
+
         }
     }
 }

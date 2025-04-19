@@ -30,24 +30,24 @@ namespace VetClinika.Windows
             pets = new List<Pet>(Connection.vet.Pet.ToList());
             this.DataContext = this;
         }
-        private void TicketSearchTb_TextChanged(object sender, TextChangedEventArgs e)
+        private void PriemSearchTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string search = TicketSearchTb.Text.Trim(); 
+            string search = PriemSearchTb.Text.Trim(); 
 
             if (string.IsNullOrEmpty(search)) 
-                ReadersLv.ItemsSource = pets.ToList(); 
+                PacientsLv.ItemsSource = pets.ToList(); 
             else
                 
-                ReadersLv.ItemsSource = pets
+                PacientsLv.ItemsSource = pets
                     .Where(i => i.idPet != -1 && i.namePet != null && i.namePet.ToLower().Contains(search.ToLower()))
                     .ToList(); 
         }
         
         
 
-        private void ReadersLv_MouseDown(object sender, MouseButtonEventArgs e)
+        private void PacientsLv_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ReadersLv.ItemsSource = new List<Pet>(DBConnection.Connection.vet.Pet.ToList());
+            PacientsLv.ItemsSource = new List<Pet>(DBConnection.Connection.vet.Pet.ToList());
         }
 
     }

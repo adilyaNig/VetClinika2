@@ -11,13 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
 using VetClinika.Pages;
 
 namespace VetClinika.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для MenuEmployeeWindow.xaml
+    /// Логика взаимодействия для MenuVrachWindow.xaml
     /// </summary>
     public partial class MenuVrachWindow : Window
     {
@@ -25,20 +24,15 @@ namespace VetClinika.Windows
         {
             InitializeComponent();
         }
-        private void readerBtn_Click(object sender, RoutedEventArgs e)
+        private void priemsBtn_Click(object sender, RoutedEventArgs e)
         {
-            menuFr.NavigationService.Navigate(new PetsPage());
+            if (!(menuFr.Content is PetsPage))
+            {
+                menuFr.NavigationService.Navigate(new PetsPage());
+            }
         }
 
-        private void bookBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //menuFr.NavigationService.Navigate(new BookksPage());
-        }
 
-        private void reportBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -52,5 +46,7 @@ namespace VetClinika.Windows
                 petsList.Show();
             
         }
+
+        
     }
 }

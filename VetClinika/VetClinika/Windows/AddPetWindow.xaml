@@ -92,9 +92,9 @@
                  Grid.ColumnSpan="2"
                  Height="35"
                  Width="200"/>
-            <Button x:Name="SaveReaderBtn"
+            <Button x:Name="SavePetBtn"
                 Content="Добавить пациента"
-                Click="SaveReaderBtn_Click"
+                Click="SavePetBtn_Click"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Grid.Row="5"

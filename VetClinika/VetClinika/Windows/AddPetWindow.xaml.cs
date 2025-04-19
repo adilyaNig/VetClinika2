@@ -16,26 +16,22 @@ using VetClinika.DBConnection;
 namespace VetClinika.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AddReaderWindow.xaml
+    /// Логика взаимодействия для AddPetWindow.xaml
     /// </summary>
     public partial class AddPetWindow : Window
     {
         public AddPetWindow()
         {
             InitializeComponent();
-            LoadComboBoxData();
-        }
-
-        private void LoadComboBoxData()
-        {
             // Загрузка данных о полах
             PolTb.ItemsSource = Connection.vet.Gender.ToList();
 
             // Загрузка данных о типах животных
             TypeTb.ItemsSource = Connection.vet.Type_Pet.ToList();
         }
-    
-        private void SaveReaderBtn_Click(object sender, RoutedEventArgs e)
+
+        
+        private void SavePetBtn_Click(object sender, RoutedEventArgs e)
         {
             Pet pet = new Pet();
             pet.namePet = NameTb.Text.Trim();

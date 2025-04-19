@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
@@ -26,7 +27,7 @@ namespace VetClinika.Pages
     public partial class PetsPage : Page
     {
         public static List<Priem> pacientsTalon {  get; set; }
-        public static List<Vrach> employees {  get; set; }
+        public static List<Vrach> vraches {  get; set; }
 
         public static Vrach vrach;
 
@@ -37,7 +38,7 @@ namespace VetClinika.Pages
             if (AuthorizationPage.vrach != null)
             {
                 // Загружаем только приёмы текущего врача
-                pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem.Where(p => p.idVrach == AuthorizationPage.vrach.idVrach).ToList());
+                pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem.Where(p => p.idVrach == AuthorizationPage.vrach.idVrach && p.isDelete == false).ToList());
             }
             else
             {
@@ -50,15 +51,15 @@ namespace VetClinika.Pages
 
 
 
-        private void TicketSearchTb_TextChanged(object sender, TextChangedEventArgs e)
+        private void PriemSearchTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string search = TicketSearchTb.Text.Trim(); // Получаем текст из TextBox
+            string search = PriemSearchTb.Text.Trim(); // Получаем текст из TextBox
 
             if (string.IsNullOrEmpty(search)) // Проверяем, пуст ли ввод
-                ReadersLv.ItemsSource = pacientsTalon.ToList(); // Если пусто, показываем все записи
+                PacientsLv.ItemsSource = pacientsTalon.ToList(); // Если пусто, показываем все записи
             else
                 // Фильтруем по кличке питомца
-                ReadersLv.ItemsSource = pacientsTalon
+                PacientsLv.ItemsSource = pacientsTalon
                     .Where(i => i.Pet != null && i.Pet.namePet != null && i.Pet.namePet.ToLower().Contains(search.ToLower()))
                     .ToList(); // Ищем по кличке, игнорируя регистр
         }
@@ -77,7 +78,7 @@ namespace VetClinika.Pages
                                             .ToList();
 
                 // Обновляем источник данных для ListView
-                ReadersLv.ItemsSource = filteredAppointments;
+                PacientsLv.ItemsSource = filteredAppointments;
 
                 // Если не найдено никаких приёмов на указанную дату
                 if (!filteredAppointments.Any())
@@ -91,36 +92,40 @@ namespace VetClinika.Pages
             else
             {
                 // Если дата не указана, показываем все приёмы
-                ReadersLv.ItemsSource = pacientsTalon;
+                PacientsLv.ItemsSource = pacientsTalon;
             }
         }
 
 
 
-        private void AddReaderTicketBtn_Click(object sender, RoutedEventArgs e)
+        private void AddPriemBtn_Click(object sender, RoutedEventArgs e)
         {
             Windows.AddPriemWindow addPriem = new Windows.AddPriemWindow();
             addPriem.Show();
         }
 
-        
 
-        private void DeleteReadreBtn_Click(object sender, RoutedEventArgs e)
+
+        private void DeletePriemBtn_Click(object sender, RoutedEventArgs e)
         {
-            var pacient = ReadersLv.SelectedItem as Priem;
+            var pacient = PacientsLv.SelectedItem as Priem;
             if (pacient != null)
             {
                 MessageBoxResult message = MessageBox.Show($"Вы действительно хотите удалить приём №{pacient.idPriem}?", "Удаление", MessageBoxButton.YesNo);
                 if (message == MessageBoxResult.Yes)
                 {
-                    // Удаляем приём из контекста данных
-                    DBConnection.Connection.vet.Priem.Remove(pacient);
+                    // Помечаем приём как удалённый
+                    pacient.isDelete = true;
+
+                    // Обновляем контекст данных
+                    DBConnection.Connection.vet.Entry(pacient).State = EntityState.Modified;
                     DBConnection.Connection.vet.SaveChanges();
 
-                    // Обновляем список приёмов, оставив только текущие
-                    pacient.isDelete = true;
-                    pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem.Where(p => p.idVrach == AuthorizationPage.vrach.idVrach).ToList());
-                    ReadersLv.ItemsSource = pacientsTalon;
+                    // Обновляем список приёмов, исключая помеченные как удалённые
+                    pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem
+                        .Where(p => p.idVrach == AuthorizationPage.vrach.idVrach && (p.isDelete == null || p.isDelete == false))
+                        .ToList());
+                    PacientsLv.ItemsSource = pacientsTalon;
 
                     MessageBox.Show("Приём успешно удалён.", "Удаление выполнено", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -131,25 +136,35 @@ namespace VetClinika.Pages
             }
         }
 
+
+
         private void ClearFilterButton_Click(object sender, RoutedEventArgs e)
         {
             dpFilterDate.SelectedDate = null; // Очищаем выбранную дату
-            ReadersLv.ItemsSource = pacientsTalon; // Возвращаемся ко всему списку
+            PacientsLv.ItemsSource = pacientsTalon; // Возвращаемся ко всему списку
         }
 
-        private void RedactTicketBtn_Click(object sender, RoutedEventArgs e)
+        private void RedactPriemBtn_Click(object sender, RoutedEventArgs e)
         {
-            var priem = ReadersLv.SelectedItem as Priem;
+            var priem = PacientsLv.SelectedItem as Priem;
             if (priem != null)
             {
-                RedactPriemWindow window1 = new RedactPriemWindow(priem); // Передаёшь объект priem
-                window1.Show();
+                RedactPriemWindow redactPriemWindow = new RedactPriemWindow(priem); // Передаёшь объект priem
+                redactPriemWindow.Show();
 
             }
             else
             {
                 MessageBox.Show("Для редактирования выберите прием");
             }
+        }
+
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pacientsTalon = new List<Priem>(DBConnection.Connection.vet.Priem
+                         .Where(p => p.idVrach == AuthorizationPage.vrach.idVrach && (p.isDelete == false))
+                         .ToList());
+            PacientsLv.ItemsSource = pacientsTalon;
         }
     }
 }

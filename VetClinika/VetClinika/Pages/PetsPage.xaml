@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:VetClinika.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ReadersPage">
+      Title="PetsPage" ShowsNavigationUI="False">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
         <ListView Grid.ColumnSpan="6"
       Grid.RowSpan="8"
-      Name="ReadersLv"
+      Name="PacientsLv"
       ItemsSource="{Binding pacientsTalon}">
             <ListView.View>
                 <GridView>
@@ -89,10 +89,21 @@
      Grid.Row="1"
      Height="25"
      Width="180"
-     Name="TicketSearchTb"
-     TextChanged="TicketSearchTb_TextChanged"
+     Name="PriemSearchTb"
+     TextChanged="PriemSearchTb_TextChanged"
      VerticalAlignment="Top"
      Padding="2 0 0 0"/>
+
+        <Button x:Name="UpdateBtn"
+Height="25"  
+Width="Auto"
+Content="Обновить страницу"
+FontSize="10" Background="Bisque"
+Grid.Column="6" Grid.Row="2"
+Margin=" 0 0 5 0"
+Click="UpdateBtn_Click"
+VerticalAlignment="Center"
+HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         <TextBlock Text="Поиск по имени"
        Grid.Column="6"
                Grid.ColumnSpan="2"
@@ -108,27 +119,27 @@
         
         <Button Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="2" x:Name="ClearFilterButton" Content="Сбросить фильтр" Click="ClearFilterButton_Click" Margin="10" Width="120"/>
 
-        <Button x:Name="AddReaderTicketBtn"
+        <Button x:Name="AddPriemBtn"
     Content="Новый прием"
     Grid.Column="6"
     Grid.ColumnSpan="2"
     Grid.Row="5"
-    Click="AddReaderTicketBtn_Click"/>
+    Click="AddPriemBtn_Click"/>
 
-        <Button x:Name="RedactTicketBtn"
+        <Button x:Name="RedactPriemBtn"
 Content="Редактировать прием" 
 Grid.Column="6"
 Grid.ColumnSpan="2"
 Grid.Row="6"
-Click="RedactTicketBtn_Click"/>
+Click="RedactPriemBtn_Click"/>
 
 
-        <Button x:Name="DeleteReadreBtn"
+        <Button x:Name="DeletePriemBtn"
 Content="Удалить прием"
 Grid.Column="6"
 Grid.ColumnSpan="2"
 Grid.Row="7"
-Click="DeleteReadreBtn_Click"/>
+Click="DeletePriemBtn_Click"/>
 
         
     </Grid>

@@ -46,12 +46,12 @@ namespace VetClinika.Pages
                 AuthorizationPage.vrach = result.Item1;
                 CurrentUser.IdVrach = result.Item1.idVrach;
 
-                MenuVrachWindow menuEmployeeWindow = new MenuVrachWindow();
-                menuEmployeeWindow.Show();
+                MenuVrachWindow menuVrachWindow = new MenuVrachWindow();
+                menuVrachWindow.Show();
 
-                menuEmployeeWindow.fioTb.Text = $"{result.Item1.famVrach} {result.Item1.nameVrach} {result.Item1.patronymicVrach}";
-                menuEmployeeWindow.typeTb.Text = result.Item2.name; // Здесь выводится профессия
-                menuEmployeeWindow.idTb.Text = $"Id: {result.Item1.idVrach}";
+                menuVrachWindow.fioTb.Text = $"{result.Item1.famVrach} {result.Item1.nameVrach} {result.Item1.patronymicVrach}";
+                menuVrachWindow.typeTb.Text = result.Item2.name; // Здесь выводится профессия
+                menuVrachWindow.idTb.Text = $"Id: {result.Item1.idVrach}";
             }
             else
             {
@@ -68,7 +68,7 @@ namespace VetClinika.Pages
                                  where v.login == login && v.password == password
                                  select v;
 
-                var vrach = vrachQuery.FirstOrDefault(); // Или SingleOrDefault(), если хотите уникальность записи
+                var vrach = vrachQuery.FirstOrDefault();
 
                 if (vrach != null)
                 {

@@ -19,7 +19,7 @@ using VetClinika.DBConnection;
 namespace VetClinika.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AddReaderTicketWindow.xaml
+    /// Логика взаимодействия для AddPriemWindow.xaml
     /// </summary>
     public partial class AddPriemWindow : Window
     {
@@ -39,7 +39,7 @@ namespace VetClinika.Windows
 
         }
 
-        private void SaveTicketBtn_Click(object sender, RoutedEventArgs e)
+        private void SavePriemBtn_Click(object sender, RoutedEventArgs e)
         {
             // Создаем новый приём
             Priem priem = new Priem();
@@ -50,7 +50,7 @@ namespace VetClinika.Windows
 
             priem.Comment=ComTb.Text;
 
-            // Забираем выбранный питомец
+            // Забираем выбранного питомца
             var pet = PetCm.SelectedItem as Pet;
             if (pet != null)
             {
@@ -58,7 +58,7 @@ namespace VetClinika.Windows
             }
 
             // Устанавливаем id врача
-            priem.idVrach = CurrentUser.IdVrach ?? 0; // Используйте 0 или другое значение по умолчанию, если idVrach не установлен
+            priem.idVrach = CurrentUser.IdVrach ?? 0; // 0 или другое значение по умолчанию, если idVrach не установлен
 
             // Сохраняем приём в базу данных
             Connection.vet.Priem.Add(priem);
@@ -68,15 +68,16 @@ namespace VetClinika.Windows
             Close();
         }
 
-        private void AddReaderBtn_Click(object sender, RoutedEventArgs e)
+        private void AddPetBtn_Click(object sender, RoutedEventArgs e)
         {
-            AddPetWindow addReaderWindow = new AddPetWindow();
-            addReaderWindow.Show();
+            AddPetWindow addPetWindow = new AddPetWindow();
+            addPetWindow.Show();
         }
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             PetCm.ItemsSource = new List<Pet>(Connection.vet.Pet.ToList());
+
         }
     }
 }
