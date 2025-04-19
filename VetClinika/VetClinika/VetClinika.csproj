@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DBConnection\bdscript.cs" />
     <Compile Include="DBConnection\Connection.cs" />
     <Compile Include="DBConnection\CurrentUser.cs" />
     <Compile Include="DBConnection\Gender.cs">
